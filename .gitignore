@@ -1,0 +1,16 @@
+*.json
+*.out
+*.csv
+*.swp
+*.swo
+
+*daemonizer
+*implant
+*test
+*testing
+*valHelper
+*demo
+
+src/buildScripts/implant
+src/buildScripts/test
+src/client/daemonizer
