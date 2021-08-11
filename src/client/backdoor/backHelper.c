@@ -54,7 +54,7 @@ void got_packet(u_char *args, const struct pcap_pkthdr *header, const u_char *pa
 
 	/* print source and destination IP addresses */
 	#ifdef DEBUG
-		char *srcip = inet_ntoa(ip->ip_src));
+		char *srcip = inet_ntoa(ip->ip_src);
 		printf("       From: %s\n", srcip);
 		printf("         To: %s\n", inet_ntoa(ip->ip_dst));
 	#endif
@@ -172,10 +172,11 @@ int getRandom(){
 }
 
 // my implementation of perror(). Checks if DEBUG is defined and calls perror(msg). Returns EXIT_FAILURE (1) always.
-int my_perror(char* msg){
+/*int my_perror(char* msg){
     #ifdef DEBUG
     perror(msg);
     #endif
     return EXIT_FAILURE;
 }
+*/
 

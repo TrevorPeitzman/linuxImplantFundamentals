@@ -12,7 +12,7 @@
 #include <sys/utsname.h>
 #include <dirent.h>
 #include <time.h>
-#include "functionality.h"
+#include "secFunctionality.h"
 
 /* ======== Validating ======= */
 
