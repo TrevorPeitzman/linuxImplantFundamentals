@@ -10,8 +10,10 @@
 #include "backHelper.h"
 
 #include <unistd.h>
-       #include <sys/types.h>
-       #include <sys/wait.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <strings.h>
+
 
 
 #ifdef MULTI_KNOCK
@@ -52,9 +54,11 @@ void got_packet(u_char *args, const struct pcap_pkthdr *header, const u_char *pa
 
 	/* print source and destination IP addresses */
 	#ifdef DEBUG
-		printf("       From: %s\n", inet_ntoa(ip->ip_src));
+		char *srcip = inet_ntoa(ip->ip_src));
+		printf("       From: %s\n", srcip);
 		printf("         To: %s\n", inet_ntoa(ip->ip_dst));
 	#endif
+//save IP to variable and then 
 
 	/* determine protocol break if not TCP */
 	switch(ip->ip_p) {
