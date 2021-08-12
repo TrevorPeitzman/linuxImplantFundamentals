@@ -1,3 +1,4 @@
+/*
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/wait.h>
@@ -10,7 +11,7 @@
 #include <string.h>
 
 #include "helper.h"
-
+*/
 int main(void)
 {
 
