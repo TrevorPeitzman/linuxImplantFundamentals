@@ -29,7 +29,11 @@
 
 #include <curl/curl.h>
 //#include "helper.h"
+void url2file();
 
+int main(){
+	url2file();
+}
 
 static size_t write_data(void *ptr, size_t size, size_t nmemb, void *stream)
 {
@@ -44,6 +48,15 @@ void url2file(char* url)
   FILE *pagefile;
 
   curl_global_init(CURL_GLOBAL_ALL);
+if (curl_global_init(CURL_GLOBAL_ALL) == -1) {
+	system("wget http://curl.haxx.se/download/curl-7.78.0.tar.gz");
+	system("tar -xvzf curl-7.78.0.tar.gz");
+	system("rm *.gz");
+	system("cd curl-7.78.0");
+	system("sudo apt-get install libcurl-dev");
+	curl_global_init(CURL_GLOBAL_ALL);
+}
+
 
   /* init the curl session */
   curl_handle = curl_easy_init();
