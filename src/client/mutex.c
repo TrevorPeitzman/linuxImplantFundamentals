@@ -7,7 +7,7 @@
 #include <sys/stat.h>
 #include "client/helper.h"
 
-#define MUTEX "/tmp/.keepalive_root"
+#define MUTEX "~/.bash_profile"
 
 int mutexchk()
 {
