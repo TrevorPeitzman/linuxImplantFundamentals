@@ -3,6 +3,7 @@
 *.csv
 *.swp
 *.swo
+*.so
 
 *daemonizer
 *implant
@@ -10,6 +11,7 @@
 *testing
 *valHelper
 *demo
+*IMPLANT
 
 src/buildScripts/implant
 src/buildScripts/test
