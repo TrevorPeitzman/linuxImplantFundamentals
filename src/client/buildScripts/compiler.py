@@ -79,6 +79,8 @@ parser.add_argument("-d", "--debug", action="store_true",
                     help="compile with debugging")
 parser.add_argument("-vg", "--valgrind", action="store_true",
                     help="compile and then run the implant through valgrind")
+parser.add_argument("-hck", "--hackable", action="store_true", 
+                    help="compile for the RE team to do RE")
 
 # Parse the arguments for use in the log and elsewhere!
 args = parser.parse_args()
@@ -111,6 +113,8 @@ if not args.strip:
     cmdString.insert(1, "-s")
 if args.staticLink:
     cmdString.insert(1, "-static")
+if args.hackable:
+    cmdString.insert(1, "-no-pie -Wl,-z,norelro -fno-stack-protector")
 
 ##### Attacks #####
 if args.reverseIP != "unknown":
@@ -123,6 +127,8 @@ if args.downloadURL != "www.example.com":
     cmdString.insert(1, "-D URL=\"" + (args.downloadURL) + "\"")
 if args.bindShell != 999999:
     cmdString.insert(1, "-D BIND")
+if args.reverseShell:
+    cmdString.insert(1, "-D REVERSE")
 
 ##### Guardrails #####
 if args.architecture != "unknown":
