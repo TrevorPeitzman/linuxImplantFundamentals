@@ -16,3 +16,5 @@
 src/buildScripts/implant
 src/buildScripts/test
 src/client/daemonizer
+*.pyc
+*.so

