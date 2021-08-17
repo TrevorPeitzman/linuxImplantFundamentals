@@ -164,7 +164,7 @@ print(cmdString)
 print(args.portsToKnock)
 
 # Execute the gcc string to compile the implant
-# subprocess.run(cmdString)
+subprocess.run(cmdString)
 
 # Run the new implant
 # FOR TESTING ONLY
