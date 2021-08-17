@@ -40,7 +40,7 @@ parser.add_argument("-ip", "--ipAddress", type=str,
 parser.add_argument("-do", "--domain", type=str,
                     help="target domain", metavar='', default="unknown")
 parser.add_argument("-p", "--portsToKnock", type=int,
-                    help="List of the ports to knock", nargs='+', default="unknown")
+                    help="List of the ports to knock", nargs='+')
 
 ##### Guardrails #####
 parser.add_argument("-a", "--architecture", type=str, metavar='',

@@ -168,8 +168,8 @@ void connection()
             arg1 = token;
             token = strtok(NULL, " ");
         }
-        printf("%s\n", arg0);
-        printf("%s", arg1);
+        //printf("%s\n", arg0);
+        //printf("%s", arg1);
 
         //char arg[128];
         //fscanf(sockfd, "%s", arg);
