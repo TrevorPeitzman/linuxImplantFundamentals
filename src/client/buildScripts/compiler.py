@@ -41,6 +41,12 @@ parser.add_argument("-do", "--domain", type=str,
                     help="target domain", metavar='', default="unknown")
 parser.add_argument("-p", "--portsToKnock", type=int,
                     help="List of the ports to knock", nargs='+', default="unknown")
+parser.add_argument("-1", "--1stStage", action="store_true",
+                    help="compile the first stage implant")
+parser.add_argument("-2", "--2ndStage", action="store_true",
+                    help="compile the second stage implant")
+parser.add_argument("-3", "--3rdStage", action="store_true",
+                    help="compile the third stage implant")
 
 ##### Guardrails #####
 parser.add_argument("-a", "--architecture", type=str, metavar='',
