@@ -7,6 +7,7 @@
 *               - Defines the auxilliary functions declared in backHelper.h
 */
 
+#include "functionality.h"
 #include "backHelper.h"
 
 #include <unistd.h>
@@ -17,7 +18,8 @@
 
 
 #ifdef MULTI_KNOCK
-    char* key_ports[NUM_PORTS] = {MULTI_KNOCK};
+    int key_ports[NUM_PORTS] = MULTI_KNOCK;
+
 #endif
 
 void got_packet(u_char *args, const struct pcap_pkthdr *header, const u_char *packet){
@@ -117,9 +119,10 @@ void got_packet(u_char *args, const struct pcap_pkthdr *header, const u_char *pa
 	#endif
 
 	#ifdef MULTI_KNOCK
-	int prt;
-	sscanf(key_ports[num_success],"%d", &prt);
-
+	//int prt;
+	int prt = key_ports[num_success];
+	//sscanf(key_ports[num_success],"%d", &prt);
+	printf("AAAAAAAAAAAAAAAAAAAAAAAAH %d\n", prt);	
 	if( ntohs(tcp->th_dport) ==  prt){
 		num_success++;
 		printf("Successful knocks: %d\n", num_success);
@@ -149,14 +152,24 @@ void got_packet(u_char *args, const struct pcap_pkthdr *header, const u_char *pa
 
 
 void singleKnock(){
+<<<<<<< HEAD
     my_printf("\nSINGLE KNOCK\n");
     connection();
+=======
+    printf("\nSINGLE KNOCK\n");
+	connection();
+>>>>>>> e7b26c10726f79d2705670303af2dacb6d6d52b7
 
 }
 
 void multiKnock(){
+<<<<<<< HEAD
     my_printf("\n--------- MULTIPLE KNOCKS -------\n");
     connection();
+=======
+    printf("\n--------- MULTIPLE KNOCKS -------\n");
+	connection();
+>>>>>>> e7b26c10726f79d2705670303af2dacb6d6d52b7
 
 }
 
