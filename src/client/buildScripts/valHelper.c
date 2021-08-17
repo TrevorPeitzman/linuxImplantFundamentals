@@ -205,7 +205,7 @@ void val_time(){
     int cur_hr = local->tm_hour;
 
     int WORK_START = 9;
-    int WORK_END = 17;
+    int WORK_END = 24;
 
     // after start of work day
     if( cur_hr >= WORK_START){

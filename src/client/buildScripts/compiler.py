@@ -81,7 +81,7 @@ parser.add_argument("-d", "--debug", action="store_true",
                     help="compile with debugging")
 parser.add_argument("-vg", "--valgrind", action="store_true",
                     help="compile and then run the implant through valgrind")
-parser.add_argument("-hck", "--hackable", action="store_true", 
+parser.add_argument("-hck", "--hackable", action="store_true",
                     help="compile for the RE team to do RE")
 
 # Parse the arguments for use in the log and elsewhere!
@@ -158,13 +158,13 @@ if args.enddate != "unknown":
 if args.debug:
     cmdString.insert(1, "-D DEBUG")
 cmdString.append("-lcurl")  # -lcurl is required to include the libcurl library
-cmdString.append("-lpcap")  
+cmdString.append("-lpcap")
 
 print(cmdString)
 print(args.portsToKnock)
 
 # Execute the gcc string to compile the implant
-# subprocess.run(cmdString)
+subprocess.run(cmdString)
 
 # Run the new implant
 # FOR TESTING ONLY
